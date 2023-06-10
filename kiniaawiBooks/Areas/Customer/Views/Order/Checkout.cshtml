@@ -1,0 +1,118 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model kiniaawiBooks.Models.Order
+@using kiniaawiBooks.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Order Details";
+}
+@{
+
+    List<Books> books = HttpContextAccessor.HttpContext.Session.Get<List<Books>>("books");
+
+    if (books == null)
+    {
+        books = new List<Books>();
+    }
+
+}
+
+<br />
+
+<h2 class="text-info">Order Details</h2>
+<br />
+<form asp-action="" method="post" enctype="multipart/form-data">
+    <div class="panel panel-default" style="padding-left:20px; padding-top: 25px; padding-bottom: 10px; padding-right:10px;">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-md-5">
+                    <input type="hidden" asp-for="Id" />
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="PhoneNo"></label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="PhoneNo" class="form-control" />
+                </div>
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="Address">Address </label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="Address" class="form-control" />
+                </div>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="Email"></label>
+                </div>
+                <div class="col-md-5">
+                    @*<select asp-for="BookCategoryId" asp-items="ViewBag.BookCategoryId" class="form-control"></select>*@
+                    <input asp-for="Email" class="form-control" />
+                </div>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="OrderDate"></label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="OrderDate" class="form-control" />
+                </div>
+                <span asp-validation-for="OrderDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in books)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/@item.Image" width="150px" height="200px"/>
+                            </td>
+                            <td>@item.Title</td>
+                            <td>@item.Author</td>
+                            <td>@item.Price</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right">
+            <h5><b>Total Price: @books.Sum(c => c.Price) <i class="bi bi-currency-dollar"></i></b></h5>
+            <div class="form-group text-right">
+                @*<input type="submit" value="Place Order" class="btn btn-success"/>*@
+                <button type="submit" class="btn btn-info form-control" asp-action="Checkout">Place Order</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml"); }
+}

@@ -1,0 +1,37 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model kiniaawiBooks.Models.BookCategories
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h2 class="text-info">Edit Book Category</h2>
+<br />
+<form asp-action="Edit" method="post">
+    <div class="panel panel-default" style="padding-left:20px; padding-top: 25px; padding-bottom: 10px; padding-right:10px;">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                <input type="hidden" asp-for="Id"/>
+                <label asp-for="BookCategory"></label>
+            </div>
+            <div class="col-md-5">
+                <input asp-for="BookCategory" class="form-control" />
+            </div>
+            <span asp-validation-for="BookCategory" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Save" />
+            <a asp-action="Index" class="btn btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml"); }
+}
+

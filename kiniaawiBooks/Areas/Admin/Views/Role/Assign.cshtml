@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model kiniaawiBooks.Areas.Admin.Models.RoleUserVm
+@{
+    ViewData["Title"] = "Assign";
+}
+
+<br />
+
+<h2 class="text-info">Assign Role</h2>
+<br />
+<form asp-action="Assign" method="post" enctype="multipart/form-data">
+    <div class="panel panel-default" style="padding-left:20px; padding-top: 25px; padding-bottom: 10px; padding-right:10px;">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <h5 style="color:red;">@ViewBag.mgs</h5><br/>
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="UserId"></label>
+            </div>
+            <div class="col-md-5">
+                <select asp-for="UserId" asp-items="ViewBag.UserId" class="form-control"></select>
+                @*<input asp-for="BookCategoryId" class="form-control" />*@
+            </div>
+            <span asp-validation-for="UserId" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="RoleId"></label>
+            </div>
+            <div class="col-md-5">
+                <select asp-for="RoleId" asp-items="ViewBag.RoleId" class="form-control"></select>
+                @*<input asp-for="BookCategoryId" class="form-control" />*@
+            </div>
+            <span asp-validation-for="RoleId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Assign" />
+            <a asp-action="Index" class="btn btn-success"><i class="bi bi-arrow-return-left"></i> Back to List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml"); }
+}

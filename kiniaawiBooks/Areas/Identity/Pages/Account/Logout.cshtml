@@ -1,0 +1,12 @@
+﻿@page
+@model LogoutModel
+@{
+    ViewData["Title"] = "Log out";
+}
+
+<header>
+    <form asp-action="Logout" method="post" enctype="multipart/form-data">
+        <h1>@ViewData["Title"]</h1>
+        <p>You have successfully logged out of the application.</p>
+        </form>
+</header>

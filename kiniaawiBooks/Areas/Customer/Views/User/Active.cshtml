@@ -1,0 +1,92 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model kiniaawiBooks.Models.ApplicationUser
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+
+<h2 class="text-info">Edit User</h2>
+<br />
+<form asp-action="Active" method="post" id="user-form" enctype="multipart/form-data">
+    <div class="panel panel-default" style="padding-left:20px; padding-top: 25px; padding-bottom: 10px; padding-right:10px;">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="UserName">Email</label>
+            </div>
+            <div class="col-md-5">
+                <input asp-for="UserName" class="form-control" readonly="readonly" />
+            </div>
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="FirstName">First Name</label>
+            </div>
+            <div class="col-md-5">
+                <input asp-for="FirstName" class="form-control" readonly="readonly" />
+            </div>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="LastName">Last Name</label>
+            </div>
+            <div class="col-md-5">
+                <input asp-for="LastName" class="form-control" readonly="readonly" />
+            </div>
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Active" />
+            @*<a asp-action="Edit" asp-controller="User" class="btn btn-primary" asp-route-id="@Model">Edit</a>*@
+            <a asp-action="Index" class="btn btn-success"><i class="bi bi-arrow-return-left"></i> Back to List</a>
+
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml"); }
+
+<script>
+    $(document).ready(function () {
+        $("#user-form").validate({
+            rules: {
+                UserName: {
+                    required: true,
+
+                },
+                PasswordHash: {
+                    required: true,
+
+                },
+                FirstName: {
+                    required: true,
+
+                },
+                LastName: {
+                    required: true,
+
+                },
+            }, messages: {
+                UserName: "Enter your email",
+                PasswordHash: "Enter your password",
+                FirstName: "Enter your first name",
+                LastName: "Enter your last name",
+            }
+        });
+    });
+
+        var msg = '@TempData["active"]';
+        if (msg.length) {
+        alert(msg);
+</script>
+}
